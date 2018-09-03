@@ -16,7 +16,7 @@ import onafy.dicoding_footballclub.model.Item
 import org.jetbrains.anko.AnkoContext
 import org.jetbrains.anko.find
 
-class RecyclerViewAdapter(private val context: Context, private val items: List<Item>,  private val listener: (Item) -> Unit)
+class RecyclerViewAdapter(private val context: Context, private val items: List<Item>,  val listener: (Item, Int) -> Unit)
     : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {
@@ -25,7 +25,8 @@ class RecyclerViewAdapter(private val context: Context, private val items: List<
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //val Item = items[position]
-        holder.bindItem(items[position], listener)
+        var item : Item = items[position]
+        holder.bindItem(items[position],listener, position)
     }
 
     override fun getItemCount(): Int = items.size
@@ -41,10 +42,10 @@ class RecyclerViewAdapter(private val context: Context, private val items: List<
             image = itemView.findViewById(R.id.image)
         }
 
-        fun bindItem(items: Item, listener: (Item) -> Unit) {
+        fun bindItem(items: Item, listener: (Item, Int) -> Unit, position: Int) {
             name.text = items.name
             Glide.with(itemView.context).load(items.image).into(image)
-            itemView.setOnClickListener { listener(items) }
+            itemView.setOnClickListener { listener(items,position) }
 
         }
     }

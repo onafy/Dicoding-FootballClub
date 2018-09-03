@@ -13,7 +13,7 @@ import onafy.dicoding_footballclub.model.Item
 import org.jetbrains.anko.*
 
 class MainActivity : AppCompatActivity() {
-    private var items: MutableList<Item> = mutableListOf()
+    public var items: MutableList<Item> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,10 +21,10 @@ class MainActivity : AppCompatActivity() {
         initData()
 
         club_list.layoutManager = LinearLayoutManager( this)
-        club_list.adapter = RecyclerViewAdapter(this, items, {item : Item -> ItemClicked(item)})
+        club_list.adapter = RecyclerViewAdapter(this, items, {item : Item, position -> ItemClicked(position)})
     }
 
-    private fun initData(){
+    fun initData(){
         val name = resources.getStringArray(R.array.club_name);
         val image = resources.obtainTypedArray(R.array.club_image)
         items.clear()
@@ -38,9 +38,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun ItemClicked(item: Item){
+    private fun ItemClicked(position:Int){
         val showDetailActivity = Intent(this, DetailActivity::class.java)
-        showDetailActivity.putExtra(Intent.EXTRA_TEXT, item.name.toString())
+        showDetailActivity.putExtra(Intent.EXTRA_TEXT, position.toString())
         startActivity(showDetailActivity)
     }
 
