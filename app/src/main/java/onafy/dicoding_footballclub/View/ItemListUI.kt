@@ -1,5 +1,6 @@
 package onafy.dicoding_footballclub.View
 
+import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ class ItemListUI : AnkoComponent<ViewGroup> {
     override fun createView(ui: AnkoContext<ViewGroup>): View = with(ui) {
             verticalLayout {
                 orientation = LinearLayout.HORIZONTAL
+                backgroundColor = Color.WHITE
                 lparams(matchParent, wrapContent)
                 padding = dip(16)
 
@@ -24,6 +26,7 @@ class ItemListUI : AnkoComponent<ViewGroup> {
 
                 textView {
                     id = name
+                    backgroundColor = Color.WHITE
                     text = "Liverpool FC"
                 }.lparams{
                     height = wrapContent
