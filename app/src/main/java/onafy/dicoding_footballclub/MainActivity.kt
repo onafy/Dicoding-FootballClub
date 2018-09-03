@@ -1,5 +1,6 @@
 package onafy.dicoding_footballclub
 
+import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -20,8 +21,7 @@ class MainActivity : AppCompatActivity() {
         initData()
 
         club_list.layoutManager = LinearLayoutManager( this)
-        club_list.adapter = RecyclerViewAdapter(this, items)
-
+        club_list.adapter = RecyclerViewAdapter(this, items, {item : Item -> ItemClicked(item)})
     }
 
     private fun initData(){
@@ -35,6 +35,13 @@ class MainActivity : AppCompatActivity() {
 
         //Recycle the typed array
         image.recycle()
+    }
+
+
+    private fun ItemClicked(item: Item){
+        val showDetailActivity = Intent(this, DetailActivity::class.java)
+        showDetailActivity.putExtra(Intent.EXTRA_TEXT, item.name.toString())
+        startActivity(showDetailActivity)
     }
 
 }
