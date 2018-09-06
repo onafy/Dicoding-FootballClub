@@ -23,6 +23,7 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         // ------------------------------------------- UI -----------------------------------------------
         verticalLayout {
             lparams(matchParent, matchParent)
@@ -58,16 +59,14 @@ class DetailActivity : AppCompatActivity() {
         name = intentMain.getStringExtra("name")
         detail = intentMain.getStringExtra("detail")
         image = intentMain.getIntExtra("image",0)
-        Log.d("LOG", "Image extra : "+image)
+        Log.d("LOG", "name extra : "+name)
+        Log.d("LOG", "image extra : "+image)
 
         nameView.text = name
         detailView.text = detail
         Glide.with(this).load(image).into(imgView)
 
 
-
-
     }
 
-
-}
+        }
