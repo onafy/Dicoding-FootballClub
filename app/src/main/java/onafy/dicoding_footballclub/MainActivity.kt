@@ -21,27 +21,24 @@ class MainActivity : AppCompatActivity() {
         initData()
 
         club_list.layoutManager = LinearLayoutManager( this)
-        club_list.adapter = RecyclerViewAdapter(this, items, {item : Item, position -> ItemClicked(position)})
+        club_list.adapter = RecyclerViewAdapter(this, items) {
+            startActivity<DetailActivity>("name" to it.name, "detail" to it.detail, "image" to it.image)
+    }
     }
 
-    fun initData(){
+    private fun initData(){
         val name = resources.getStringArray(R.array.club_name);
         val image = resources.obtainTypedArray(R.array.club_image)
+        val detail = resources.getStringArray(R.array.club_detail)
+
         items.clear()
         for(i in name.indices){
             items.add(Item(name[i],
-                    image.getResourceId(i,0)))
+                    image.getResourceId(i,0),detail[i]))
         }
 
         //Recycle the typed array
         image.recycle()
-    }
-
-
-    private fun ItemClicked(position:Int){
-        val showDetailActivity = Intent(this, DetailActivity::class.java)
-        showDetailActivity.putExtra(Intent.EXTRA_TEXT, position.toString())
-        startActivity(showDetailActivity)
     }
 
 }
